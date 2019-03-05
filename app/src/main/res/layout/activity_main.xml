@@ -30,6 +30,13 @@
         android:layout_centerHorizontal="true"
         android:onClick="enviar"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cargar Lista"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"/>
+
 
 
 </RelativeLayout>

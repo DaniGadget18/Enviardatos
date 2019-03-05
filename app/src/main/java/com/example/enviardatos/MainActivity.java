@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         datos.put("Nombre",texto.getText().toString());
         String url = "http://nuevo.rnrsiilge-org.mx/nombre";
 
-        // http://nuevo.rnrsiilge-org.mx/nombre/ListaNombre
+        // http://nuevo.rnrsiilge-org.mx/nombre&
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url,datos, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
