@@ -40,16 +40,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void enviar(View view) {
-        final String nombre = texto.getText().toString();
+    public void enviar(View view) throws JSONException {
+        final JSONObject datos = new JSONObject();
+        datos.put("Nombre",texto.getText().toString());
         String url = "http://nuevo.rnrsiilge-org.mx/nombre";
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url,null, new Response.Listener<JSONObject>() {
+        // http://nuevo.rnrsiilge-org.mx/nombre/ListaNombre
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url,datos, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Persona p = new Gson().fromJson(response.toString(), Persona.class);
-                Log.d("Mensaje", p.toString());
-                Toast.makeText(MainActivity.this, "Persona" + p.toString(), Toast.LENGTH_SHORT).show();
+                Log.d("Mensaje", response.toString());
+                Toast.makeText(MainActivity.this, "Persona" + response.toString(), Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
