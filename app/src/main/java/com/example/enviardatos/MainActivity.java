@@ -13,7 +13,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.example.enviardatos.Modelo.Persona;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -40,18 +42,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void enviar(View view) {
         final String nombre = texto.getText().toString();
+        String url = "http://nuevo.rnrsiilge-org.mx/nombre";
 
-        final JsonArrayRequest js = new JsonArrayRequest(Request.Method.GET, "http://nuevo.rnrsiilge-org.mx/nombre?Nombre=raa", null, new Response.Listener<JSONArray>() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url,null, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(JSONArray response) {
-                try {
-                    JSONObject JO = response.getJSONObject(0);
-                    Log.d("Mensaje",response.toString());
-                    Toast.makeText(MainActivity.this, "Respuesta del servidor" + JO.getString("usuario"), Toast.LENGTH_SHORT).show();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
+            public void onResponse(JSONObject response) {
+                Persona p = new Gson().fromJson(response.toString(), Persona.class);
+                Log.d("Mensaje", p.toString());
+                Toast.makeText(MainActivity.this, "Persona" + p.toString(), Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -60,9 +58,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
+        VolleyS.getInstance(this).getmRequestQueue().add(request);
     }
 }
